@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace GameScores\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
