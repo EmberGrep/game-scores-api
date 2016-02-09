@@ -19,6 +19,8 @@ class GameScoresController extends Controller
 
     protected $createValidationRules = [
         'game' => 'exists:games,id',
+        'username' => 'required|min:2',
+        'score' => 'numeric|min:0',
     ];
 
     public function __construct(GameScore $gameScore) {
