@@ -22,11 +22,7 @@ class GamesController extends Controller
         $game = $this->game->findOrFail($id);
 
         return new JsonResponse([
-            'data' => [
-                'type' => 'game',
-                'id' => (string) $game->id,
-                'attributes' => $game->toArray(),
-            ]
+            'data' => $this->serializeGame($game),
         ]);
     }
 
@@ -37,11 +33,15 @@ class GamesController extends Controller
         $game = $this->game->create($attrs);
 
         return new JsonResponse([
-            'data' => [
-                'type' => 'game',
-                'id' => (string) $game->id,
-                'attributes' => $game->toArray(),
-            ]
+            'data' => $this->serializeGame($game),
         ]);
+    }
+
+    protected function serializeGame($game) {
+        return [
+            'type' => 'game',
+            'id' => (string) $game->id,
+            'attributes' => $game->toArray(),
+        ];
     }
 }
