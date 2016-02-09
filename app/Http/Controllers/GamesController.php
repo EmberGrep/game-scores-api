@@ -27,7 +27,7 @@ class GamesController extends Controller
         return new JsonResponse([
             'data' => [
                 'type' => 'game',
-                'id' => $game->id,
+                'id' => (string) $game->id,
                 'attributes' => $game->toArray(),
             ]
         ]);
