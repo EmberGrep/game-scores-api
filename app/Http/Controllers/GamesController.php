@@ -48,6 +48,19 @@ class GamesController extends Controller
         ]);
     }
 
+    public function update(Request $req, JsonResponse $res, $id) {
+        $type = $req->json('data.type');
+        $attrs = $req->json('data.attributes');
+
+        $game = $this->game->find($id);
+        $game->fill($attrs);
+        $game->save();
+
+        return new JsonResponse([
+            'data' => $this->serializeGame($game),
+        ]);
+    }
+
     protected function serializeGame($game) {
         return [
             'type' => 'game',
