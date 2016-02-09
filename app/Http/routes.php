@@ -25,6 +25,10 @@ $router->group(['prefix' => 'games'], function($router) {
     $router->delete('/{id}', 'GamesController@delete');
 });
 
+$router->group(['prefix' => 'game-scores'], function($router) {
+    $router->post('/', 'GameScoresController@store');
+});
+
 
 
 /*
