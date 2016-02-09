@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ExampleTest extends TestCase
 {
+    protected $gameName = 'Donkey Kong Country';
+
     use DatabaseMigrations, DatabaseTransactions;
 
     /**
@@ -18,14 +20,18 @@ class ExampleTest extends TestCase
         $this->post('/game', ['data' => [
             'type' => 'game',
             'attributes' => [
-                'name' => 'Donkey Kong Country',
+                'name' => $this->gameName,
             ],
-        ]])->seeJson(['data' => [
-            'type' => 'game',
-            'id' => '1',
-            'attributes' => [
-                'name' => 'Donkey Kong Country',
-            ]
         ]]);
+
+        // ->seeJson(['data' => [
+        //     'type' => 'game',
+        //     'id' => '1',
+        //     'attributes' => [
+        //         'name' => $this->gameName,
+        //     ]
+        // ]]);
+
+        $this->assertEquals($this->gameName, Game::first()->name);
     }
 }
