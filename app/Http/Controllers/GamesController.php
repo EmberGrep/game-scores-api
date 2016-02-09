@@ -18,6 +18,17 @@ class GamesController extends Controller
         $this->game = $game;
     }
 
+    public function index(JsonResponse $res) {
+        $controller = $this;
+        $games = $this->game->orderBy('id', 'asc')->get();
+
+        return new JsonResponse([
+            'data' => $games->map(function($game) use ($controller) {
+                return $controller->serializeGame($game);
+            }),
+        ]);
+    }
+
     public function find(JsonResponse $res, $id) {
         $game = $this->game->findOrFail($id);
 
