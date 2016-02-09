@@ -151,6 +151,11 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+         * Third Party Providers...
+         */
+        Barryvdh\Cors\ServiceProvider::class,
+
+        /*
          * Application Service Providers...
          */
         GameScores\Providers\AppServiceProvider::class,
