@@ -78,6 +78,72 @@ class GameScoreApiTest extends TestCase
         ]);
     }
 
+    public function testGetGameScore()
+    {
+        $gameScore = GameScore::create([
+            'username' => 'AAA',
+            'score' => 1000000,
+            'game' => $this->game->id,
+        ]);
+
+        $this->json('GET', 'game-scores/1');
+
+        $this->assertResponseOk();
+
+        $this->seeJson([
+            'data' => [
+                'type' => 'game-score',
+                'id' => '1',
+                'attributes' => [
+                    'username' => 'AAA',
+                    'score' => 1000000,
+                    'game' => $this->game->id,
+                ],
+            ],
+        ]);
+    }
+
+    public function testGameScoreIndex()
+    {
+        GameScore::create([
+            'username' => 'AAA',
+            'score' => 1000000,
+            'game' => $this->game->id,
+        ]);
+        GameScore::create([
+            'username' => 'AAA',
+            'score' => 2000000,
+            'game' => $this->gameTwo->id,
+        ]);
+
+        $this->json('GET', 'game-scores');
+
+        $this->assertResponseOk();
+
+        $this->seeJson([
+            'data' => [
+                [
+                    'type' => 'game-score',
+                    'id' => '1',
+                    'attributes' => [
+                        'username' => 'AAA',
+                        'score' => 1000000,
+                        'game' => $this->game->id,
+                    ],
+                ],
+                [
+                    'type' => 'game-score',
+                    'id' => '2',
+                    'attributes' => [
+                        'username' => 'AAA',
+                        'score' => 2000000,
+                        'game' => $this->gameTwo->id,
+                    ],
+                ],
+            ],
+        ]);
+    }
+
     public function testUpdateGameScore()
     {
         $gameScore = GameScore::create([
@@ -111,5 +177,25 @@ class GameScoreApiTest extends TestCase
         ]);
 
         $this->assertEquals(2000000, GameScore::firstOrFail()->score);
+    }
+
+    public function testGameDelete()
+    {
+        GameScore::create([
+            'username' => 'AAA',
+            'score' => 1000000,
+            'game' => $this->game->id,
+        ]);
+        GameScore::create([
+            'username' => 'AAA',
+            'score' => 2000000,
+            'game' => $this->gameTwo->id,
+        ]);
+
+        $this->json('DELETE', 'game-scores/1');
+
+        $this->assertResponseStatus(204);
+
+        $this->assertEquals(1, GameScore::count());
     }
 }
