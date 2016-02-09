@@ -18,7 +18,9 @@ env:
     - setup=basic
     - DB_HOST=127.0.0.1
     - DB_DATABASE=travis_ci_test
-    - DB_USERNAME=postgre
+    - DB_USERNAME=postgres
+    - APP_ENV=local
+    - APP_DEBUG=true
 
 sudo: false
 
