@@ -24,6 +24,12 @@ class GamesController extends Controller
 
         $game = $this->game->create($attrs);
 
-        return $game;
+        return new JsonResponse([
+            'data' => [
+                'type' => 'game',
+                'id' => $game->id,
+                'attributes' => $game->toArray(),
+            ]
+        ]);
     }
 }

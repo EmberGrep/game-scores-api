@@ -14,4 +14,11 @@ class Game extends Model
     protected $fillable = [
         'name',
     ];
+
+
+    protected $hidden = [
+        'id',
+        'updated_at',
+        'created_at',
+    ];
 }
