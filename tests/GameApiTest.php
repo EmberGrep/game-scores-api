@@ -36,4 +36,25 @@ class GameApiTest extends TestCase
 
         $this->assertEquals($this->gameName, Game::firstOrFail()->name);
     }
+
+    public function testGetGame()
+    {
+        Game::create(['name' => $this->gameName]);
+
+        $this->json('GET', 'games/1');
+
+        $this->assertResponseOk();
+
+        $this->seeJson([
+            'data' => [
+                'type' => 'game',
+                'id' => '1',
+                'attributes' => [
+                    'name' => $this->gameName,
+                ],
+            ],
+        ]);
+
+        $this->assertEquals($this->gameName, Game::firstOrFail()->name);
+    }
 }
