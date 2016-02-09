@@ -27,6 +27,7 @@ $router->group(['prefix' => 'games'], function($router) {
 
 $router->group(['prefix' => 'game-scores'], function($router) {
     $router->post('/', 'GameScoresController@store');
+    $router->put('/{id}', 'GameScoresController@update');
 });
 
 
