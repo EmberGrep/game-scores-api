@@ -37,7 +37,15 @@ class GameScoresController extends Controller
             ]);
         }
 
-        return new JsonResponse([], 400);
+        return new JsonResponse([
+            'errors' => array_map(function ($err) {
+                return [
+                    'status' => '400',
+                    'title' => 'Invalid Attribute',
+                    'detail' => $err,
+                ];
+            }, $this->errors->all()),
+        ], 400);
     }
 
     protected function validateCreate($attrs) {

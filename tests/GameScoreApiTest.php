@@ -68,13 +68,11 @@ class GameScoreApiTest extends TestCase
         $this->assertResponseStatus(400);
 
         $this->seeJson([
-            'data' => [
-                'type' => 'game-score',
-                'id' => '1',
-                'attributes' => [
-                    'username' => 'AAA',
-                    'score' => 1000000,
-                    'game' => $this->game->id,
+            'errors' => [
+                [
+                    'status' => '400',
+                    'title' => 'Invalid Attribute',
+                    'detail' => 'The selected game is invalid.'
                 ],
             ],
         ]);
