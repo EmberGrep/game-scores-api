@@ -26,6 +26,25 @@ class GameScoresController extends Controller
         $this->gameScore = $gameScore;
     }
 
+    public function index(JsonResponse $res) {
+        $controller = $this;
+        $gameScores = $this->gameScore->orderBy('id', 'asc')->get();
+
+        return new JsonResponse([
+            'data' => $gameScores->map(function($gameScore) use ($controller) {
+                return $controller->serializeGameScore($gameScore);
+            }),
+        ]);
+    }
+
+    public function find(JsonResponse $res, $id) {
+        $gameScore = $this->gameScore->findOrFail($id);
+
+        return new JsonResponse([
+            'data' => $this->serializeGameScore($gameScore),
+        ]);
+    }
+
     public function store(Request $req, JsonResponse $res) {
         $type = $req->json('data.type');
         $attrs = $req->json('data.attributes');
@@ -71,6 +90,12 @@ class GameScoresController extends Controller
         }
 
         return true;
+    }
+
+    public function delete(JsonResponse $res, $id) {
+        $this->gameScore->destroy($id);
+
+        return new JsonResponse(null, 204);
     }
 
     protected function serializeGameScore($gameScore) {

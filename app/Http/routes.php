@@ -26,8 +26,11 @@ $router->group(['prefix' => 'games'], function($router) {
 });
 
 $router->group(['prefix' => 'game-scores'], function($router) {
+    $router->get('/', 'GameScoresController@index');
     $router->post('/', 'GameScoresController@store');
+    $router->get('/{id}', 'GameScoresController@find');
     $router->put('/{id}', 'GameScoresController@update');
+    $router->delete('/{id}', 'GameScoresController@delete');
 });
 
 
