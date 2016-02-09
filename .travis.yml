@@ -1,0 +1,34 @@
+language: php
+
+php:
+  - 7.0
+
+addons:
+  postgresql: "9.3"
+
+services:
+  - postgresql
+
+cache:
+  directories:
+    - vendor
+
+env:
+  global:
+    - setup=basic
+    - DB_HOST=127.0.0.1
+    - DB_DATABASE=travis_ci_test
+    - DB_USERNAME=postgres
+    - APP_ENV=local
+    - APP_DEBUG=true
+
+sudo: false
+
+install:
+  - travis_retry composer install --no-interaction
+
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - php artisan migrate
+
+script: vendor/bin/phpunit

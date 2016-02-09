@@ -2,6 +2,8 @@
 
 return [
 
+    'version' => '1.0',
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -151,10 +153,10 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        GameScores\Providers\AppServiceProvider::class,
+        GameScores\Providers\AuthServiceProvider::class,
+        GameScores\Providers\EventServiceProvider::class,
+        GameScores\Providers\RouteServiceProvider::class,
 
     ],
 

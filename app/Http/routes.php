@@ -11,9 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+$router->get('/', function () {
+    return [
+        'version' => Config::get('app.version'),
+    ];
 });
+
+$router->group(['prefix' => 'games'], function($router) {
+    $router->post('/', 'GamesController@store');
+});
+
+
 
 /*
 |--------------------------------------------------------------------------
