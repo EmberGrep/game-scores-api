@@ -20,13 +20,6 @@ env:
     - DB_DATABASE=travis_ci_test
     - DB_USERNAME=postgre
 
-matrix:
-  include:
-    - php: 5.6
-      env: setup=lowest
-    - php: 5.6
-      env: setup=stable
-
 sudo: false
 
 install:
