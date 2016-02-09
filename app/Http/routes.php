@@ -18,8 +18,9 @@ $router->get('/', function () {
 });
 
 $router->group(['prefix' => 'games'], function($router) {
-    $router->get('/{id}', 'GamesController@find');
+    $router->get('/', 'GamesController@index');
     $router->post('/', 'GamesController@store');
+    $router->get('/{id}', 'GamesController@find');
 });
 
 

@@ -9,6 +9,7 @@ use GameScores\Models\Game;
 class GameApiTest extends TestCase
 {
     protected $gameName = 'Donkey Kong Country';
+    protected $gameNameTwo = 'Mario Kart';
 
     use DatabaseMigrations, DatabaseTransactions;
 
@@ -51,6 +52,37 @@ class GameApiTest extends TestCase
                 'id' => '1',
                 'attributes' => [
                     'name' => $this->gameName,
+                ],
+            ],
+        ]);
+
+        $this->assertEquals($this->gameName, Game::firstOrFail()->name);
+    }
+
+    public function testGameIndex()
+    {
+        Game::create(['name' => $this->gameName]);
+        Game::create(['name' => $this->gameNameTwo]);
+
+        $this->json('GET', 'games');
+
+        $this->assertResponseOk();
+
+        $this->seeJson([
+            'data' => [
+                [
+                    'type' => 'game',
+                    'id' => '1',
+                    'attributes' => [
+                        'name' => $this->gameName,
+                    ],
+                ],
+                [
+                    'type' => 'game',
+                    'id' => '2',
+                    'attributes' => [
+                        'name' => $this->gameNameTwo,
+                    ],
                 ],
             ],
         ]);
