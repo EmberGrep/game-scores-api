@@ -9,6 +9,10 @@ addons:
 services:
   - postgresql
 
+cache:
+  directories:
+    - vendor
+
 env:
   global:
     - setup=basic
@@ -26,11 +30,10 @@ matrix:
 sudo: false
 
 install:
-  - if [[ $setup = 'basic' ]]; then travis_retry composer install --no-interaction --prefer-source; fi
-  - if [[ $setup = 'stable' ]]; then travis_retry composer update --prefer-source --no-interaction --prefer-stable; fi
-  - if [[ $setup = 'lowest' ]]; then travis_retry composer update --prefer-source --no-interaction --prefer-lowest --prefer-stable; fi
+  - travis_retry composer install --no-interaction --prefer-stable
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
+  - php artisan migrate
 
 script: vendor/bin/phpunit
