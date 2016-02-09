@@ -1,0 +1,8 @@
+{
+  "name": "game-scores",
+  "description": "A Restful API to back the Game Score app used in EmberGrep's GameScore app.",
+  "addons": [
+    "rediscloud",
+    "heroku-postgresql"
+  ]
+}
