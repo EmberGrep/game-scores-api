@@ -25,12 +25,16 @@ class GameApiTest extends TestCase
             'attributes' => [
                 'name' => $this->gameName,
             ],
+            'relationships' => [
+            ],
         ]])->seeJson([
             'data' => [
                 'type' => 'game',
                 'id' => '1',
                 'attributes' => [
                     'name' => $this->gameName,
+                ],
+                'relationships' => [
                 ],
             ],
         ]);
@@ -52,6 +56,8 @@ class GameApiTest extends TestCase
                 'id' => '1',
                 'attributes' => [
                     'name' => $this->gameName,
+                ],
+                'relationships' => [
                 ],
             ],
         ]);
@@ -76,12 +82,16 @@ class GameApiTest extends TestCase
                     'attributes' => [
                         'name' => $this->gameName,
                     ],
+                    'relationships' => [
+                    ],
                 ],
                 [
                     'type' => 'game',
                     'id' => '2',
                     'attributes' => [
                         'name' => $this->gameNameTwo,
+                    ],
+                    'relationships' => [
                     ],
                 ],
             ],
@@ -100,6 +110,8 @@ class GameApiTest extends TestCase
             'attributes' => [
                 'name' => $this->gameNameTwo,
             ],
+            'relationships' => [
+            ],
         ]]);
 
         $this->assertResponseOk();
@@ -110,6 +122,8 @@ class GameApiTest extends TestCase
                 'id' => '1',
                 'attributes' => [
                     'name' => $this->gameNameTwo,
+                ],
+                'relationships' => [
                 ],
             ],
         ]);
