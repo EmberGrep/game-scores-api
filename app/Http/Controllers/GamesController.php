@@ -61,6 +61,12 @@ class GamesController extends Controller
         ]);
     }
 
+    public function delete(JsonResponse $res, $id) {
+        $this->game->destroy($id);
+
+        return new JsonResponse(null, 204);
+    }
+
     protected function serializeGame($game) {
         return [
             'type' => 'game',

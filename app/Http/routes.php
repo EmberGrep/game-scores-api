@@ -22,6 +22,7 @@ $router->group(['prefix' => 'games'], function($router) {
     $router->post('/', 'GamesController@store');
     $router->get('/{id}', 'GamesController@find');
     $router->put('/{id}', 'GamesController@update');
+    $router->delete('/{id}', 'GamesController@delete');
 });
 
 
