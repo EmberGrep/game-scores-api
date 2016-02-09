@@ -9,10 +9,6 @@ addons:
 services:
   - postgresql
 
-cache:
-  directories:
-    - vendor
-
 env:
   global:
     - setup=basic
