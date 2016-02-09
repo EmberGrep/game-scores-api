@@ -5,7 +5,12 @@ $database = env('DB_DATABASE', 'forge');
 $username = env('DB_USERNAME', 'forge');
 $password = env('DB_PASSWORD', '');
 
+$redisHost = env('REDIS_HOST', 'localhost');
+$redisPassword = env('REDIS_PASSWORD', null);
+$redisPort = env('REDIS_PORT', 6379);
+
 $dbUrl = env("DATABASE_URL");
+$redisUrl = env("REDISCLOUD_URL");
 
 if ($dbUrl) {
     $url = parse_url($dbUrl);
@@ -14,6 +19,14 @@ if ($dbUrl) {
     $username = $url["user"];
     $password = $url["pass"];
     $database = substr($url["path"], 1);
+}
+
+if ($redisUrl) {
+    $url = parse_url($redisUrl);
+
+    $redisHost = $url["host"];
+    $redisPassword = $url["pass"];
+    $redisPort = $url["port"];
 }
 
 return [
@@ -61,25 +74,6 @@ return [
     */
 
     'connections' => [
-
-        'sqlite' => [
-            'driver'   => 'sqlite',
-            'database' => database_path('database.sqlite'),
-            'prefix'   => '',
-        ],
-
-        'mysql' => [
-            'driver'    => 'mysql',
-            'host'      => env('DB_HOST', 'localhost'),
-            'database'  => env('DB_DATABASE', 'forge'),
-            'username'  => env('DB_USERNAME', 'forge'),
-            'password'  => env('DB_PASSWORD', ''),
-            'charset'   => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix'    => '',
-            'strict'    => false,
-        ],
-
         'pgsql' => [
             'driver'   => 'pgsql',
             'host'     => $host,
@@ -90,17 +84,6 @@ return [
             'prefix'   => '',
             'schema'   => 'public',
         ],
-
-        'sqlsrv' => [
-            'driver'   => 'sqlsrv',
-            'host'     => env('DB_HOST', 'localhost'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
-            'charset'  => 'utf8',
-            'prefix'   => '',
-        ],
-
     ],
 
     /*
@@ -132,9 +115,9 @@ return [
         'cluster' => false,
 
         'default' => [
-            'host'     => env('REDIS_HOST', 'localhost'),
-            'password' => env('REDIS_PASSWORD', null),
-            'port'     => env('REDIS_PORT', 6379),
+            'host'     => $redisHost,
+            'password' => $redisPassword,
+            'port'     => $redisPort,
             'database' => 0,
         ],
 
