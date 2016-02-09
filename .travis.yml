@@ -23,7 +23,7 @@ env:
 sudo: false
 
 install:
-  - travis_retry composer install --no-interaction --prefer-stable
+  - travis_retry composer install --no-interaction
 
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
