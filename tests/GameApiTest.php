@@ -4,7 +4,9 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ExampleTest extends TestCase
+use GameScores\Models\Game;
+
+class GameApiTest extends TestCase
 {
     protected $gameName = 'Donkey Kong Country';
 
@@ -15,14 +17,14 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
-    public function testBasicExample()
+    public function testCreateGame()
     {
-        $this->post('/game', ['data' => [
+        $this->post('/games', ['data' => [
             'type' => 'game',
             'attributes' => [
                 'name' => $this->gameName,
             ],
-        ]]);
+        ]])->assertResponseOk();
 
         // ->seeJson(['data' => [
         //     'type' => 'game',
@@ -32,6 +34,6 @@ class ExampleTest extends TestCase
         //     ]
         // ]]);
 
-        $this->assertEquals($this->gameName, Game::first()->name);
+        $this->assertEquals($this->gameName, Game::firstOrFail()->name);
     }
 }
