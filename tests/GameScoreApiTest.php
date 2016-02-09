@@ -77,4 +77,39 @@ class GameScoreApiTest extends TestCase
             ],
         ]);
     }
+
+    public function testUpdateGameScore()
+    {
+        $gameScore = GameScore::create([
+            'username' => 'AAA',
+            'score' => 1000000,
+            'game' => $this->game->id,
+        ]);
+
+        $this->json('PUT', "game-scores/{$gameScore->id}", ['data' => [
+            'type' => 'game-score',
+            'id' => $gameScore->id,
+            'attributes' => [
+                'username' => 'AAA',
+                'score' => 2000000,
+                'game' => $this->game->id,
+            ],
+        ]]);
+
+        $this->assertResponseOk();
+
+        $this->seeJson([
+            'data' => [
+                'type' => 'game-score',
+                'id' => '1',
+                'attributes' => [
+                    'username' => 'AAA',
+                    'score' => 2000000,
+                    'game' => $this->game->id,
+                ],
+            ],
+        ]);
+
+        $this->assertEquals(2000000, GameScore::firstOrFail()->score);
+    }
 }
