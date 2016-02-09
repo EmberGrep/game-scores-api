@@ -10,7 +10,7 @@ class GameApiTest extends TestCase
 {
     protected $gameName = 'Donkey Kong Country';
 
-    use DatabaseMigrations, DatabaseTransactions;
+    use DatabaseMigrations;
 
     /**
      * A basic functional test example.
@@ -19,20 +19,18 @@ class GameApiTest extends TestCase
      */
     public function testCreateGame()
     {
-        $this->post('/games', ['data' => [
+        $this->json('POST', 'games', ['data' => [
             'type' => 'game',
             'attributes' => [
                 'name' => $this->gameName,
             ],
-        ]])->assertResponseOk();
-
-        // ->seeJson(['data' => [
-        //     'type' => 'game',
-        //     'id' => '1',
-        //     'attributes' => [
-        //         'name' => $this->gameName,
-        //     ]
-        // ]]);
+        ]])->seeJson(['data' => [
+            'type' => 'game',
+            'id' => '1',
+            'attributes' => [
+                'name' => $this->gameName,
+            ]
+        ]]);
 
         $this->assertEquals($this->gameName, Game::firstOrFail()->name);
     }
