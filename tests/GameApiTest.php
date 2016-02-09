@@ -89,4 +89,16 @@ class GameApiTest extends TestCase
 
         $this->assertEquals($this->gameName, Game::firstOrFail()->name);
     }
+
+    public function testGameDelete()
+    {
+        Game::create(['name' => $this->gameName]);
+        Game::create(['name' => $this->gameNameTwo]);
+
+        $this->json('DELETE', 'games/1');
+
+        $this->assertResponseStatus(204);
+
+        $this->assertEquals(1, Game::count());
+    }
 }
