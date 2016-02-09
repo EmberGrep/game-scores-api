@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
+use Validator;
+
+use GameScores\Models\Game;
 use GameScores\Models\GameScore;
 
 
@@ -14,6 +17,10 @@ class GameScoresController extends Controller
      */
     protected $gameScore;
 
+    protected $createValidationRules = [
+        'game' => 'exists:games,id',
+    ];
+
     public function __construct(GameScore $gameScore) {
         $this->gameScore = $gameScore;
     }
@@ -22,11 +29,26 @@ class GameScoresController extends Controller
         $type = $req->json('data.type');
         $attrs = $req->json('data.attributes');
 
-        $gameScore = $this->gameScore->create($attrs);
+        if ($this->validateCreate($attrs)) {
+            $gameScore = $this->gameScore->create($attrs);
 
-        return new JsonResponse([
-            'data' => $this->serializeGameScore($gameScore),
-        ]);
+            return new JsonResponse([
+                'data' => $this->serializeGameScore($gameScore),
+            ]);
+        }
+
+        return new JsonResponse([], 400);
+    }
+
+    protected function validateCreate($attrs) {
+        $validator = Validator::make($attrs, $this->createValidationRules);
+
+        if ($validator->fails()) {
+            $this->errors = $validator->errors();
+            return false;
+        }
+
+        return true;
     }
 
     protected function serializeGameScore($gameScore) {

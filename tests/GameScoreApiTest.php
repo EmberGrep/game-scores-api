@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use GameScores\Models\Game;
+use GameScores\Models\GameScore;
 
 class GameScoreApiTest extends TestCase
 {
@@ -22,11 +23,6 @@ class GameScoreApiTest extends TestCase
         $this->gameTwo = Game::create($this->gameAttrsTwo);
     }
 
-    /**
-     * A basic functional test example.
-     *
-     * @return void
-     */
     public function testCreateGameScore()
     {
         $this->json('POST', 'game-scores', ['data' => [
@@ -52,6 +48,35 @@ class GameScoreApiTest extends TestCase
             ],
         ]);
 
-        $this->assertEquals($this->gameAttrs['name'], Game::firstOrFail()->name);
+        $this->assertEquals('AAA', GameScore::firstOrFail()->username);
+    }
+
+    public function testCannotCreateScoreForInvalidGame()
+    {
+        $id = $this->game->id;
+        $this->game->delete();
+
+        $this->json('POST', 'game-scores', ['data' => [
+            'type' => 'game-score',
+            'attributes' => [
+                'username' => 'AAA',
+                'score' => 1000000,
+                'game' => $id,
+            ],
+        ]]);
+
+        $this->assertResponseStatus(400);
+
+        $this->seeJson([
+            'data' => [
+                'type' => 'game-score',
+                'id' => '1',
+                'attributes' => [
+                    'username' => 'AAA',
+                    'score' => 1000000,
+                    'game' => $this->game->id,
+                ],
+            ],
+        ]);
     }
 }
