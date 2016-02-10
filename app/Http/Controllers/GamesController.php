@@ -72,6 +72,7 @@ class GamesController extends Controller
             'type' => 'game',
             'id' => (string) $game->id,
             'attributes' => $game->toArray(),
+            'relationships' => $game->getJSONRelationshipsArray(),
         ];
     }
 }

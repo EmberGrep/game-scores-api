@@ -17,7 +17,7 @@ class GameScoresController extends Controller
     protected $gameScore;
 
     protected $rules = [
-        'game' => 'exists:games,id',
+        'game' => 'required|exists:games,id',
         'username' => 'required|min:2',
         'score' => 'numeric|min:0',
     ];
@@ -47,7 +47,7 @@ class GameScoresController extends Controller
 
     public function store(Request $req, JsonResponse $res) {
         $type = $req->json('data.type');
-        $attrs = $req->json('data.attributes');
+        $attrs = $this->getAttrsFromRequest($req);
 
         if ($this->validateCreate($attrs)) {
             $gameScore = $this->gameScore->create($attrs);
@@ -70,7 +70,7 @@ class GameScoresController extends Controller
 
     public function update(Request $req, JsonResponse $res, $id) {
         $type = $req->json('data.type');
-        $attrs = $req->json('data.attributes');
+        $attrs = $this->getAttrsFromRequest($req);
 
         $game = $this->gameScore->find($id);
         $game->fill($attrs);
@@ -79,6 +79,20 @@ class GameScoresController extends Controller
         return new JsonResponse([
             'data' => $this->serializeGameScore($game),
         ]);
+    }
+
+
+    public function delete(JsonResponse $res, $id) {
+        $this->gameScore->destroy($id);
+
+        return new JsonResponse(null, 204);
+    }
+
+    protected function getAttrsFromRequest($req) {
+        $attrs = $req->json('data.attributes');
+        $attrs['game'] = $req->json('data.relationships.game.id');
+
+        return $attrs;
     }
 
     protected function validateCreate($attrs) {
@@ -92,17 +106,12 @@ class GameScoresController extends Controller
         return true;
     }
 
-    public function delete(JsonResponse $res, $id) {
-        $this->gameScore->destroy($id);
-
-        return new JsonResponse(null, 204);
-    }
-
     protected function serializeGameScore($gameScore) {
         return [
             'type' => 'game-score',
             'id' => (string) $gameScore->id,
             'attributes' => $gameScore->toArray(),
+            'relationships' => $gameScore->getJSONRelationshipsArray(),
         ];
     }
 }

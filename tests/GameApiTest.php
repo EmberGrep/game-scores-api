@@ -25,12 +25,18 @@ class GameApiTest extends TestCase
             'attributes' => [
                 'name' => $this->gameName,
             ],
+            'relationships' => [
+                'scores' => []
+            ],
         ]])->seeJson([
             'data' => [
                 'type' => 'game',
                 'id' => '1',
                 'attributes' => [
                     'name' => $this->gameName,
+                ],
+                'relationships' => [
+                    'scores' => []
                 ],
             ],
         ]);
@@ -52,6 +58,9 @@ class GameApiTest extends TestCase
                 'id' => '1',
                 'attributes' => [
                     'name' => $this->gameName,
+                ],
+                'relationships' => [
+                    'scores' => []
                 ],
             ],
         ]);
@@ -76,12 +85,18 @@ class GameApiTest extends TestCase
                     'attributes' => [
                         'name' => $this->gameName,
                     ],
+                    'relationships' => [
+                        'scores' => []
+                    ],
                 ],
                 [
                     'type' => 'game',
                     'id' => '2',
                     'attributes' => [
                         'name' => $this->gameNameTwo,
+                    ],
+                    'relationships' => [
+                        'scores' => []
                     ],
                 ],
             ],
@@ -100,6 +115,9 @@ class GameApiTest extends TestCase
             'attributes' => [
                 'name' => $this->gameNameTwo,
             ],
+            'relationships' => [
+                'scores' => []
+            ],
         ]]);
 
         $this->assertResponseOk();
@@ -110,6 +128,9 @@ class GameApiTest extends TestCase
                 'id' => '1',
                 'attributes' => [
                     'name' => $this->gameNameTwo,
+                ],
+                'relationships' => [
+                    'scores' => []
                 ],
             ],
         ]);

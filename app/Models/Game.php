@@ -21,4 +21,16 @@ class Game extends Model
         'updated_at',
         'created_at',
     ];
+
+    public function scores() {
+        return $this->hasMany(GameScore::class);
+    }
+
+    public function getJSONRelationshipsArray() {
+        return [
+            'scores' => $this->scores()->lists('id')->map(function ($score) {
+                return ['type' => 'game-scores', 'id' => (string) $score];
+            }),
+        ];
+    }
 }

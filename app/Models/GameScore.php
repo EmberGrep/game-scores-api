@@ -17,10 +17,6 @@ class GameScore extends Model
         'game',
     ];
 
-    protected $appends = [
-        'game',
-    ];
-
     protected $hidden = [
         'id',
         'game_id',
@@ -38,5 +34,14 @@ class GameScore extends Model
 
     public function getGameAttribute() {
         return $this->attributes['game_id'];
+    }
+
+    public function getJSONRelationshipsArray() {
+        return [
+            'game' => [
+                'type' => 'games',
+                'id' => (string) $this->game,
+            ],
+        ];
     }
 }

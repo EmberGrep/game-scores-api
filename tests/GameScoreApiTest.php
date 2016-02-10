@@ -30,7 +30,12 @@ class GameScoreApiTest extends TestCase
             'attributes' => [
                 'username' => 'AAA',
                 'score' => 1000000,
-                'game' => $this->game->id,
+            ],
+            'relationships' => [
+                'game' => [
+                    'type' => 'games',
+                    'id' => (string) $this->game->id,
+                ],
             ],
         ]]);
 
@@ -43,7 +48,12 @@ class GameScoreApiTest extends TestCase
                 'attributes' => [
                     'username' => 'AAA',
                     'score' => 1000000,
-                    'game' => $this->game->id,
+                ],
+                'relationships' => [
+                    'game' => [
+                        'type' => 'games',
+                        'id' => (string) $this->game->id,
+                    ],
                 ],
             ],
         ]);
@@ -61,7 +71,12 @@ class GameScoreApiTest extends TestCase
             'attributes' => [
                 'username' => 'AAA',
                 'score' => 1000000,
-                'game' => $id,
+            ],
+            'relationships' => [
+                'game' => [
+                    'type' => 'games',
+                    'id' => (string) $id,
+                ],
             ],
         ]]);
 
@@ -97,7 +112,12 @@ class GameScoreApiTest extends TestCase
                 'attributes' => [
                     'username' => 'AAA',
                     'score' => 1000000,
-                    'game' => $this->game->id,
+                ],
+                'relationships' => [
+                    'game' => [
+                        'type' => 'games',
+                        'id' => (string) $this->game->id,
+                    ],
                 ],
             ],
         ]);
@@ -128,7 +148,12 @@ class GameScoreApiTest extends TestCase
                     'attributes' => [
                         'username' => 'AAA',
                         'score' => 1000000,
-                        'game' => $this->game->id,
+                    ],
+                    'relationships' => [
+                        'game' => [
+                            'type' => 'games',
+                            'id' => (string) $this->game->id,
+                        ],
                     ],
                 ],
                 [
@@ -137,7 +162,12 @@ class GameScoreApiTest extends TestCase
                     'attributes' => [
                         'username' => 'AAA',
                         'score' => 2000000,
-                        'game' => $this->gameTwo->id,
+                    ],
+                    'relationships' => [
+                        'game' => [
+                            'type' => 'games',
+                            'id' => (string) $this->gameTwo->id,
+                        ],
                     ],
                 ],
             ],
@@ -154,11 +184,16 @@ class GameScoreApiTest extends TestCase
 
         $this->json('PUT', "game-scores/{$gameScore->id}", ['data' => [
             'type' => 'game-score',
-            'id' => $gameScore->id,
+            'id' => (string) $gameScore->id,
             'attributes' => [
                 'username' => 'AAA',
                 'score' => 2000000,
-                'game' => $this->game->id,
+            ],
+            'relationships' => [
+                'game' => [
+                    'type' => 'games',
+                    'id' => (string) $this->game->id,
+                ],
             ],
         ]]);
 
@@ -171,7 +206,12 @@ class GameScoreApiTest extends TestCase
                 'attributes' => [
                     'username' => 'AAA',
                     'score' => 2000000,
-                    'game' => $this->game->id,
+                ],
+                'relationships' => [
+                    'game' => [
+                        'type' => 'games',
+                        'id' => (string) $this->game->id,
+                    ],
                 ],
             ],
         ]);
