@@ -108,7 +108,7 @@ class GameScoresController extends Controller
 
     protected function serializeGameScore($gameScore) {
         return [
-            'type' => 'game-score',
+            'type' => 'game-scores',
             'id' => (string) $gameScore->id,
             'attributes' => $gameScore->toArray(),
             'relationships' => $gameScore->getJSONRelationshipsArray(),
