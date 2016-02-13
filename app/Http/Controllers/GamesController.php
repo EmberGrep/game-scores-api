@@ -69,7 +69,7 @@ class GamesController extends Controller
 
     protected function serializeGame($game) {
         return [
-            'type' => 'game',
+            'type' => 'games',
             'id' => (string) $game->id,
             'attributes' => $game->toArray(),
             'relationships' => $game->getJSONRelationshipsArray(),

@@ -26,7 +26,7 @@ class GameScoreApiTest extends TestCase
     public function testCreateGameScore()
     {
         $this->json('POST', 'game-scores', ['data' => [
-            'type' => 'game-score',
+            'type' => 'game-scores',
             'attributes' => [
                 'username' => 'AAA',
                 'score' => 1000000,
@@ -43,7 +43,7 @@ class GameScoreApiTest extends TestCase
 
         $this->seeJson([
             'data' => [
-                'type' => 'game-score',
+                'type' => 'game-scores',
                 'id' => '1',
                 'attributes' => [
                     'username' => 'AAA',
@@ -67,7 +67,7 @@ class GameScoreApiTest extends TestCase
         $this->game->delete();
 
         $this->json('POST', 'game-scores', ['data' => [
-            'type' => 'game-score',
+            'type' => 'game-scores',
             'attributes' => [
                 'username' => 'AAA',
                 'score' => 1000000,
@@ -107,7 +107,7 @@ class GameScoreApiTest extends TestCase
 
         $this->seeJson([
             'data' => [
-                'type' => 'game-score',
+                'type' => 'game-scores',
                 'id' => '1',
                 'attributes' => [
                     'username' => 'AAA',
@@ -143,7 +143,7 @@ class GameScoreApiTest extends TestCase
         $this->seeJson([
             'data' => [
                 [
-                    'type' => 'game-score',
+                    'type' => 'game-scores',
                     'id' => '1',
                     'attributes' => [
                         'username' => 'AAA',
@@ -157,7 +157,7 @@ class GameScoreApiTest extends TestCase
                     ],
                 ],
                 [
-                    'type' => 'game-score',
+                    'type' => 'game-scores',
                     'id' => '2',
                     'attributes' => [
                         'username' => 'AAA',
@@ -183,7 +183,7 @@ class GameScoreApiTest extends TestCase
         ]);
 
         $this->json('PUT', "game-scores/{$gameScore->id}", ['data' => [
-            'type' => 'game-score',
+            'type' => 'game-scores',
             'id' => (string) $gameScore->id,
             'attributes' => [
                 'username' => 'AAA',
@@ -201,7 +201,7 @@ class GameScoreApiTest extends TestCase
 
         $this->seeJson([
             'data' => [
-                'type' => 'game-score',
+                'type' => 'game-scores',
                 'id' => '1',
                 'attributes' => [
                     'username' => 'AAA',
