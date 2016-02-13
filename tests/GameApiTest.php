@@ -21,7 +21,7 @@ class GameApiTest extends TestCase
     public function testCreateGame()
     {
         $this->json('POST', 'games', ['data' => [
-            'type' => 'game',
+            'type' => 'games',
             'attributes' => [
                 'name' => $this->gameName,
             ],
@@ -30,7 +30,7 @@ class GameApiTest extends TestCase
             ],
         ]])->seeJson([
             'data' => [
-                'type' => 'game',
+                'type' => 'games',
                 'id' => '1',
                 'attributes' => [
                     'name' => $this->gameName,
@@ -54,7 +54,7 @@ class GameApiTest extends TestCase
 
         $this->seeJson([
             'data' => [
-                'type' => 'game',
+                'type' => 'games',
                 'id' => '1',
                 'attributes' => [
                     'name' => $this->gameName,
@@ -80,7 +80,7 @@ class GameApiTest extends TestCase
         $this->seeJson([
             'data' => [
                 [
-                    'type' => 'game',
+                    'type' => 'games',
                     'id' => '1',
                     'attributes' => [
                         'name' => $this->gameName,
@@ -90,7 +90,7 @@ class GameApiTest extends TestCase
                     ],
                 ],
                 [
-                    'type' => 'game',
+                    'type' => 'games',
                     'id' => '2',
                     'attributes' => [
                         'name' => $this->gameNameTwo,
@@ -110,7 +110,7 @@ class GameApiTest extends TestCase
         $game = Game::create(['name' => $this->gameName]);
 
         $this->json('PUT', "games/{$game->id}", ['data' => [
-            'type' => 'game',
+            'type' => 'games',
             'id' => $game->id,
             'attributes' => [
                 'name' => $this->gameNameTwo,
@@ -124,7 +124,7 @@ class GameApiTest extends TestCase
 
         $this->seeJson([
             'data' => [
-                'type' => 'game',
+                'type' => 'games',
                 'id' => '1',
                 'attributes' => [
                     'name' => $this->gameNameTwo,
