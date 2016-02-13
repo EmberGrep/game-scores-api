@@ -33,6 +33,7 @@ $router->group(['prefix' => 'game-scores'], function($router) {
     $router->delete('/{id}', 'GameScoresController@delete');
 });
 
+$router->any('reset', 'ResetController@reset');
 
 
 /*

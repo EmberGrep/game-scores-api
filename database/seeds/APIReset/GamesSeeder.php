@@ -14,7 +14,7 @@ class GamesSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement("TRUNCATE TABLE games CASCADE");
+        DB::statement("TRUNCATE TABLE games RESTART IDENTITY CASCADE");
 
         $games = [
             [
