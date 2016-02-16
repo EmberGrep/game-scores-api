@@ -39,8 +39,10 @@ class GameScore extends Model
     public function getJSONRelationshipsArray() {
         return [
             'game' => [
-                'type' => 'games',
-                'id' => (string) $this->game,
+                'data' => [
+                    'type' => 'games',
+                    'id' => (string) $this->game,
+                ],
             ],
         ];
     }
