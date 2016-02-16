@@ -90,7 +90,7 @@ class GameScoresController extends Controller
 
     protected function getAttrsFromRequest($req) {
         $attrs = $req->json('data.attributes');
-        $attrs['game'] = $req->json('data.relationships.game.id');
+        $attrs['game'] = $req->json('data.relationships.game.data.id');
 
         return $attrs;
     }
