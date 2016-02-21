@@ -109,7 +109,7 @@ class GameApiTest extends TestCase
     {
         $game = Game::create(['name' => $this->gameName]);
 
-        $this->json('PUT', "games/{$game->id}", ['data' => [
+        $this->json('PATCH', "games/{$game->id}", ['data' => [
             'type' => 'games',
             'id' => $game->id,
             'attributes' => [
