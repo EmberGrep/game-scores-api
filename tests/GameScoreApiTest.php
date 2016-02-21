@@ -194,7 +194,7 @@ class GameScoreApiTest extends TestCase
             'game' => $this->game->id,
         ]);
 
-        $this->json('PUT', "game-scores/{$gameScore->id}", ['data' => [
+        $this->json('PATCH', "game-scores/{$gameScore->id}", ['data' => [
             'type' => 'game-scores',
             'id' => (string) $gameScore->id,
             'attributes' => [
