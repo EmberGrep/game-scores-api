@@ -33,8 +33,10 @@ class GameScoreApiTest extends TestCase
             ],
             'relationships' => [
                 'game' => [
-                    'type' => 'games',
-                    'id' => (string) $this->game->id,
+                    'data' => [
+                        'type' => 'games',
+                        'id' => (string) $this->game->id,
+                    ],
                 ],
             ],
         ]]);
@@ -51,8 +53,10 @@ class GameScoreApiTest extends TestCase
                 ],
                 'relationships' => [
                     'game' => [
-                        'type' => 'games',
-                        'id' => (string) $this->game->id,
+                        'data' => [
+                            'type' => 'games',
+                            'id' => (string) $this->game->id,
+                        ],
                     ],
                 ],
             ],
@@ -74,8 +78,10 @@ class GameScoreApiTest extends TestCase
             ],
             'relationships' => [
                 'game' => [
-                    'type' => 'games',
-                    'id' => (string) $id,
+                    'data' => [
+                        'type' => 'games',
+                        'id' => (string) $id,
+                    ],
                 ],
             ],
         ]]);
@@ -115,8 +121,10 @@ class GameScoreApiTest extends TestCase
                 ],
                 'relationships' => [
                     'game' => [
-                        'type' => 'games',
-                        'id' => (string) $this->game->id,
+                        'data' => [
+                            'type' => 'games',
+                            'id' => (string) $this->game->id,
+                        ],
                     ],
                 ],
             ],
@@ -151,8 +159,10 @@ class GameScoreApiTest extends TestCase
                     ],
                     'relationships' => [
                         'game' => [
-                            'type' => 'games',
-                            'id' => (string) $this->game->id,
+                            'data' => [
+                                'type' => 'games',
+                                'id' => (string) $this->game->id,
+                            ],
                         ],
                     ],
                 ],
@@ -165,8 +175,10 @@ class GameScoreApiTest extends TestCase
                     ],
                     'relationships' => [
                         'game' => [
-                            'type' => 'games',
-                            'id' => (string) $this->gameTwo->id,
+                            'data' => [
+                                'type' => 'games',
+                                'id' => (string) $this->gameTwo->id,
+                            ],
                         ],
                     ],
                 ],
@@ -182,7 +194,7 @@ class GameScoreApiTest extends TestCase
             'game' => $this->game->id,
         ]);
 
-        $this->json('PUT', "game-scores/{$gameScore->id}", ['data' => [
+        $this->json('PATCH', "game-scores/{$gameScore->id}", ['data' => [
             'type' => 'game-scores',
             'id' => (string) $gameScore->id,
             'attributes' => [
@@ -191,8 +203,10 @@ class GameScoreApiTest extends TestCase
             ],
             'relationships' => [
                 'game' => [
-                    'type' => 'games',
-                    'id' => (string) $this->game->id,
+                    'data' => [
+                        'type' => 'games',
+                        'id' => (string) $this->game->id,
+                    ],
                 ],
             ],
         ]]);
@@ -209,8 +223,10 @@ class GameScoreApiTest extends TestCase
                 ],
                 'relationships' => [
                     'game' => [
-                        'type' => 'games',
-                        'id' => (string) $this->game->id,
+                        'data' => [
+                            'type' => 'games',
+                            'id' => (string) $this->game->id,
+                        ],
                     ],
                 ],
             ],

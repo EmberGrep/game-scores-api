@@ -28,9 +28,11 @@ class Game extends Model
 
     public function getJSONRelationshipsArray() {
         return [
-            'scores' => $this->scores()->lists('id')->map(function ($score) {
-                return ['type' => 'game-scores', 'id' => (string) $score];
-            }),
+            'scores' => [
+                'data' => $this->scores()->lists('id')->map(function ($score) {
+                    return ['type' => 'game-scores', 'id' => (string) $score];
+                }),
+            ],
         ];
     }
 }

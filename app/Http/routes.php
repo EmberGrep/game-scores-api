@@ -18,11 +18,12 @@ $router->get('/', function () {
 });
 
 $router->group(['middleware' => 'reset'], function($router) {
+
     $router->group(['prefix' => 'games'], function($router) {
         $router->get('/', 'GamesController@index');
         $router->post('/', 'GamesController@store');
         $router->get('/{id}', 'GamesController@find');
-        $router->put('/{id}', 'GamesController@update');
+        $router->patch('/{id}', 'GamesController@update');
         $router->delete('/{id}', 'GamesController@delete');
     });
 
@@ -30,13 +31,12 @@ $router->group(['middleware' => 'reset'], function($router) {
         $router->get('/', 'GameScoresController@index');
         $router->post('/', 'GameScoresController@store');
         $router->get('/{id}', 'GameScoresController@find');
-        $router->put('/{id}', 'GameScoresController@update');
+        $router->patch('/{id}', 'GameScoresController@update');
         $router->delete('/{id}', 'GameScoresController@delete');
     });
+
+    $router->any('reset', 'ResetController@reset');
 });
-
-$router->any('reset', 'ResetController@reset');
-
 
 /*
 |--------------------------------------------------------------------------

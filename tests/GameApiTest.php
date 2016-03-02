@@ -26,7 +26,7 @@ class GameApiTest extends TestCase
                 'name' => $this->gameName,
             ],
             'relationships' => [
-                'scores' => []
+                'scores' => ['data' => []]
             ],
         ]])->seeJson([
             'data' => [
@@ -36,7 +36,7 @@ class GameApiTest extends TestCase
                     'name' => $this->gameName,
                 ],
                 'relationships' => [
-                    'scores' => []
+                    'scores' => ['data' => []]
                 ],
             ],
         ]);
@@ -60,7 +60,7 @@ class GameApiTest extends TestCase
                     'name' => $this->gameName,
                 ],
                 'relationships' => [
-                    'scores' => []
+                    'scores' => ['data' => []]
                 ],
             ],
         ]);
@@ -86,7 +86,7 @@ class GameApiTest extends TestCase
                         'name' => $this->gameName,
                     ],
                     'relationships' => [
-                        'scores' => []
+                        'scores' => ['data' => []]
                     ],
                 ],
                 [
@@ -96,7 +96,7 @@ class GameApiTest extends TestCase
                         'name' => $this->gameNameTwo,
                     ],
                     'relationships' => [
-                        'scores' => []
+                        'scores' => ['data' => []]
                     ],
                 ],
             ],
@@ -109,14 +109,14 @@ class GameApiTest extends TestCase
     {
         $game = Game::create(['name' => $this->gameName]);
 
-        $this->json('PUT', "games/{$game->id}", ['data' => [
+        $this->json('PATCH', "games/{$game->id}", ['data' => [
             'type' => 'games',
             'id' => $game->id,
             'attributes' => [
                 'name' => $this->gameNameTwo,
             ],
             'relationships' => [
-                'scores' => []
+                'scores' => ['data' => []]
             ],
         ]]);
 
@@ -130,7 +130,7 @@ class GameApiTest extends TestCase
                     'name' => $this->gameNameTwo,
                 ],
                 'relationships' => [
-                    'scores' => []
+                    'scores' => ['data' => []]
                 ],
             ],
         ]);
