@@ -45,6 +45,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'reset' => \GameScores\Http\Middleware\ResetDaily::class,
         'auth' => \GameScores\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \GameScores\Http\Middleware\RedirectIfAuthenticated::class,
